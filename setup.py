@@ -14,7 +14,7 @@ REQUIREMENTS = [
 if os.name == 'posix': REQUIREMENTS.append('pysane')
 
 setup(name='imagescanner',
-      version='0.9-alpha',
+      version='0.9',
       description='Multi-platform Python library to access scanner devices.',
       author='Sergio Oliveira',
       author_email='seocam@seocam.com',
