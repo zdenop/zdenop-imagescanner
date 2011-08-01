@@ -1,7 +1,6 @@
-"""Network backend. Access devices provided by our the XMLRPC server.
+"""Network backend. Access devices provided by our the XMLRPC server."""
 
-$Id"""
-
+import json
 import time
 import socket
 import logging
@@ -9,7 +8,6 @@ import xmlrpclib
 from cStringIO import StringIO
 
 import Image
-import cjson
 from autoconnect import UdpReceiver
 from imagescanner import settings
 from imagescanner.backends import base
@@ -63,7 +61,7 @@ class ScannerManager(base.ScannerManager):
                 wait_for_remote_devices = False
                 return 
             
-            msg = cjson.decode(encoded_msg)
+            msg = json.loads(encoded_msg)
             ipaddr = msg.get('ip')
         
             # If the IP address is generic or not set use the 
@@ -110,7 +108,7 @@ class ScannerManager(base.ScannerManager):
                 continue
             logging.debug('JSON answer from %s: %s', remote_host, response)
             
-            scanner_list = cjson.decode(response)
+            scanner_list = json.loads(response)
             for scanner_info in scanner_list:
                 scanner_info.update({'proxy': proxy})
                 scanner = Scanner(**scanner_info)

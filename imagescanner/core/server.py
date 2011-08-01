@@ -2,23 +2,29 @@
 
 Runs a server which provide some of the library features on the network.
 
-$id$
-
 """
 
+import json
 import xmlrpclib
 from cStringIO import StringIO
 from SimpleXMLRPCServer import SimpleXMLRPCServer, SimpleXMLRPCRequestHandler
 
-import cjson
 from imagescanner import ImageScanner
-from imagescanner.utils import scanner_serializer
+
+
+def scanner_serializer(device):
+    return {
+        'id': device.id,
+        'name': device.name,
+        'manufacturer': getattr(device, 'manufacturer', None),
+        'description': getattr(device, 'description', None),
+    }
 
 
 def list_scanners():
     devices = ImageScanner(remote_search=False).list_scanners()
     serialized_devices = [scanner_serializer(device) for device in devices]
-    return cjson.encode(serialized_devices)
+    return json.dumps(serialized_devices)
 
 
 def scan(device_id):

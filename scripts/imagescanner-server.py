@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 
 import sys
-import logging
+import json
 import socket
-import cjson
-from imagescanner.core import server
+import logging
 from optparse import OptionParser
+
 from autoconnect import UdpBroadcaster
+
+from imagescanner.core import server
 
 XMLRPC_SERVER_PORT = 3244
 DEFAULT_BROADCAST_IP = socket.gethostbyname('<broadcast>')
@@ -46,7 +48,7 @@ if options.broadcast:
         'port': options.port,
         'ip': options.listen_address,
     }
-    encoded_msg = cjson.encode(msg) 
+    encoded_msg = json.dumps(msg) 
     msg = 'broadcasting message: %s' % encoded_msg
     logging.debug(msg)
     broadcaster.start(encoded_msg, [DEFAULT_BROADCAST_PORT])
