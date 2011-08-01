@@ -15,12 +15,17 @@ from imagescanner.backends import base
 SEARCH_PORT = 3244
 SEARCH_TIMEOUT = 3
 
+
+def dict_keys_to_str(dict_obj):
+    return dict([(str(k), v) for (k, v) in dict_obj.items()])
+
+
 class ScannerManager(base.ScannerManager):
 
     def __init__(self, **kwargs):
         super(ScannerManager, self).__init__(**kwargs)
         self.remote_hosts = kwargs.get('remote_hosts', list())       
- 	
+
         if kwargs.get('remote_search', True):
             self._search_for_remote_devices()
 
@@ -110,6 +115,7 @@ class ScannerManager(base.ScannerManager):
             
             scanner_list = json.loads(response)
             for scanner_info in scanner_list:
+                scanner_info = dict_keys_to_str(scanner_info)
                 scanner_info.update({'proxy': proxy})
                 scanner = Scanner(**scanner_info)
                 self._devices.append(scanner)
