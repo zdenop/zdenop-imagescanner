@@ -3,9 +3,8 @@
 import os
 import platform
 from distutils import version
-from distutils.core import Extension
 
-from setuptools import setup, find_packages
+from setuptools import setup, find_packages, Extension
 
 
 REQUIREMENTS = ['autoconnect', 'PIL']
@@ -14,7 +13,9 @@ EXT_MODULES = []
 if os.name == 'posix': 
     if platform.system() == 'Darwin':
         scanning_module = Extension('_scanning', 
-                            sources=['imagescanner/backends/osx/_scanning.m'])
+                            sources=['imagescanner/backends/osx/_scanning.m'],
+                            extra_link_args=['-framework', 'Carbon', 
+                                             '-framework', 'Foundation'])
         EXT_MODULES.append(scanning_module)
     else:
         REQUIREMENTS.append('pysane>=2.0.1')
