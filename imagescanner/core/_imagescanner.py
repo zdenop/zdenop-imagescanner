@@ -3,12 +3,14 @@
 $Id$""" 
 
 import os
+import platform
 import logging
 from importlib import import_module
 
 from imagescanner import settings
 
 
+OSX_BACKEND = 'imagescanner.backends.osx'
 POSIX_BACKEND = 'imagescanner.backends.sane'
 NT_BACKEND = 'imagescanner.backends.twain'
 NETWORK_BACKEND = 'imagescanner.backends.net'
@@ -33,8 +35,13 @@ class ImageScanner(object):
 
         # Enable default backend for each system
         if os.name == 'posix':
-            logging.debug('Posix backend enabled (%s)', POSIX_BACKEND)
-            backends.append(POSIX_BACKEND)
+            if platform.system() == 'Darwin':
+                logging.debug('OSX backend enabled (%s)', OSX_BACKEND)
+                backends.append(OSX_BACKEND)
+            else: 
+                logging.debug('Posix backend enabled (%s)', POSIX_BACKEND)
+                backends.append(POSIX_BACKEND)
+
         elif os.name == 'nt':
             logging.debug('NT backend enabled (%s)', NT_BACKEND)
             backends.append(NT_BACKEND)

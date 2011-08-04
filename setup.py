@@ -1,16 +1,25 @@
 #!/usr/bin/env python
 
 import os
+import platform
 from setuptools import setup, find_packages
+from distutils.core import Extension
 
 REQUIREMENTS = [
     'autoconnect', 
     'importlib',
     'PIL',
 ]
+EXT_MODULES = []
 
-# Required only by Posix:
-if os.name == 'posix': REQUIREMENTS.append('pysane')
+if os.name == 'posix': 
+    if platform.system() == 'Darwin':
+        scanning_module = Extension('_scanning', 
+                            sources=['imagescanner/backends/osx/_scanning.m'])
+        EXT_MODULES.append(scanning_module)
+    else:
+        REQUIREMENTS.append('pysane')
+
 
 setup(name='imagescanner',
       version='0.9',
@@ -21,5 +30,6 @@ setup(name='imagescanner',
       packages=find_packages(),
       package_data={'': ['*.tiff']},
       install_requires=REQUIREMENTS,
+      ext_modules=EXT_MODULES,
      )
 
