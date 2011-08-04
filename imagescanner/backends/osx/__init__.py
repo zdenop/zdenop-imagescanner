@@ -1,8 +1,8 @@
 """OS X backend."""
 
 import _scanning
-
 from imagescanner.backends import base 
+
 
 class ScannerManager(base.ScannerManager):
  
