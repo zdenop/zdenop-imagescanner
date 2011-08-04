@@ -2,14 +2,13 @@
 
 import os
 import platform
-from setuptools import setup, find_packages
+from distutils import version
 from distutils.core import Extension
 
-REQUIREMENTS = [
-    'autoconnect', 
-    'importlib',
-    'PIL',
-]
+from setuptools import setup, find_packages
+
+
+REQUIREMENTS = ['autoconnect', 'PIL']
 EXT_MODULES = []
 
 if os.name == 'posix': 
@@ -20,6 +19,10 @@ if os.name == 'posix':
     else:
         REQUIREMENTS.append('pysane>=2.0.1')
 
+# If python version < 2.7 the backport from pypi will be 
+#   required 
+if platform.python_version() < version.StrictVersion("2.7"):
+    REQUIREMENTS.append('importlib')
 
 setup(name='imagescanner',
       version='0.9',
