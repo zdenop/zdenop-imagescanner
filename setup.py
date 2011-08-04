@@ -18,7 +18,7 @@ if os.name == 'posix':
                             sources=['imagescanner/backends/osx/_scanning.m'])
         EXT_MODULES.append(scanning_module)
     else:
-        REQUIREMENTS.append('pysane')
+        REQUIREMENTS.append('pysane>=2.0.1')
 
 
 setup(name='imagescanner',
