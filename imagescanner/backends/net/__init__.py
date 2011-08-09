@@ -60,7 +60,7 @@ class ScannerManager(base.ScannerManager):
                                                         timeout=SEARCH_TIMEOUT)
             except socket.timeout:
                 # in case of timeout stop searching
-                msg = ('Stop searching for for devices. '
+                msg = ('Stop searching for devices. '
                        'Connection timeout (%s seconds)' % SEARCH_TIMEOUT)
                 logging.debug(msg)
                 wait_for_remote_devices = False
