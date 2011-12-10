@@ -12,7 +12,8 @@ from imagescanner import settings
 
 OSX_BACKEND = 'imagescanner.backends.osx'
 POSIX_BACKEND = 'imagescanner.backends.sane'
-NT_BACKEND = 'imagescanner.backends.twain'
+#NT_BACKEND = 'imagescanner.backends.twain'
+NT_BACKEND = 'imagescanner.backends.wia'
 NETWORK_BACKEND = 'imagescanner.backends.net'
 TEST_BACKEND = 'imagescanner.backends.test'
 
