@@ -12,8 +12,8 @@ from imagescanner import settings
 
 OSX_BACKEND = 'imagescanner.backends.osx'
 POSIX_BACKEND = 'imagescanner.backends.sane'
-#NT_BACKEND = 'imagescanner.backends.twain'
-NT_BACKEND = 'imagescanner.backends.wia'
+NT_BACKEND_0 = 'imagescanner.backends.wia'
+NT_BACKEND_1 = 'imagescanner.backends.twain'
 NETWORK_BACKEND = 'imagescanner.backends.net'
 TEST_BACKEND = 'imagescanner.backends.test'
 
@@ -44,8 +44,10 @@ class ImageScanner(object):
                 backends.append(POSIX_BACKEND)
 
         elif os.name == 'nt':
-            logging.debug('NT backend enabled (%s)', NT_BACKEND)
-            backends.append(NT_BACKEND)
+            logging.debug('NT backend enabled (%s)', NT_BACKEND_0)
+            backends.append(NT_BACKEND_0)
+            logging.debug('NT backend enabled (%s)', NT_BACKEND_1)
+            backends.append(NT_BACKEND_1)
         
         # Check if we should load the test backend
         if getattr(settings, 'ENABLE_TEST_BACKEND', False):
