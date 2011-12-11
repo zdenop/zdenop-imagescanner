@@ -26,8 +26,9 @@ class ScannerManager(base.ScannerManager):
         self._devices = []
 
         devman = win32com.client.Dispatch(WIA_DEVICE_MANAGER)
+        # Creates list of available devices. Device must be plugged and on.
         for dev in devman.DeviceInfos:
-            # ignore other devices than scanners
+            # Ignore other devices than scanners
             if dev.Type == WIA_DEVICE_SCANNER:
                 scanner_id = 'wia-%s' % len(self._devices)
                 try:
