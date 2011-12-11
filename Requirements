@@ -1,0 +1,9 @@
+General:
+    python-2.x (tested on 2.7)
+    
+Linux:
+    python-sane
+
+Windows:
+    python-twain
+    python-win32com
