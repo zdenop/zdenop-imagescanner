@@ -36,8 +36,9 @@ class ScannerManager(base.ScannerManager):
             # So lets cheat with WIA if device is available.
             #
             # TODO: make it depended on settings
-            if dev.replace(' TWAIN','') in available:
-                # twain added ' TWAIN' to name e.g. 'Canon DR-2580C TWAIN'
+            
+            # twain added ' TWAIN' to name e.g. 'Canon DR-2580C TWAIN'
+            if dev.replace(' TWAIN','') in available or len(available) == 0:
                 scanner_id = 'twain-%s' % len(self._devices)
                 try:
                     scanner = Scanner(scanner_id, dev)
